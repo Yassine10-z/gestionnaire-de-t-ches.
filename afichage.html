@@ -1,87 +1,28 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Tâches</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #f9f9f9;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .tache-titre {
-            font-weight: bold;
-            font-size: 18px;
-        }
-        .tache-description {
-            margin-top: 5px;
-            font-size: 14px;
-            color: #666;
-        }
-    </style>
+    <title>Show Tasks</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h2>Liste des Tâches</h2>
-        <ul id="liste-taches">
-            <!-- Exemple de tâche -->
-            <li>
-                <div class="tache-titre">Titre de la tâche 1</div>
-                <div class="tache-description">Ceci est la description de la tâche 1.</div>
-            </li>
-            <li>
-                <div class="tache-titre">Titre de la tâche 2</div>
-                <div class="tache-description">Ceci est la description de la tâche 2.</div>
-            </li>
-            <!-- Les tâches ajoutées seront affichées ici -->
-        </ul>
+        <h1>Task List</h1>
+        <ul id="taskList"></ul>
+        <p><a href="addTask.html">Add More Tasks</a></p>
     </div>
 
     <script>
-        // Exemple pour ajouter des tâches dynamiquement
-        const taches = [
-            { titre: 'Faire les courses', description: 'Acheter du pain, du lait et des œufs.' },
-            { titre: 'Réviser le cours', description: 'Étudier les chapitres 1 et 2 pour l’examen.' },
-        ];
+        document.addEventListener('DOMContentLoaded', function() {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskList = document.getElementById('taskList');
 
-        const listeTaches = document.getElementById('liste-taches');
-
-        taches.forEach(tache => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <div class="tache-titre">${tache.titre}</div>
-                <div class="tache-description">${tache.description}</div>
-            `;
-            listeTaches.appendChild(li);
+            tasks.forEach(task => {
+                const listItem = document.createElement('li');
+                listItem.textContent = task;
+                taskList.appendChild(listItem);
+            });
         });
     </script>
 </body>
